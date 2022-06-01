@@ -136,6 +136,10 @@
   `networking.knative.dev/ingress-class` and the deprecated `networking.knative.dev/ingress.class` one
   to adapt to [what has already been done in knative](https://github.com/knative/networking/pull/522).
   [#2485](https://github.com/Kong/kubernetes-ingress-controller/issues/2485)
+- The all-in-one manifests now use a separate ClusterRole for Gateway API
+  resources, allowing non-admin users to apply these manifests (minus the
+  Gateway API role) on clusters without Gateway API CRDs installed.
+  [#2529](https://github.com/Kong/kubernetes-ingress-controller/issues/2529)
 
 ## [2.3.1]
 
