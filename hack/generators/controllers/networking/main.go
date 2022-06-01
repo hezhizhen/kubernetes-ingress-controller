@@ -491,8 +491,8 @@ func (r *{{.PackageAlias}}{{.Kind}}Reconciler) listClassless(obj client.Object) 
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -580,9 +580,8 @@ func (r *{{.PackageAlias}}{{.Kind}}Reconciler) Reconcile(ctx context.Context, re
 		if len(obj.Status.LoadBalancer.Ingress) != len(addrs) || !reflect.DeepEqual(obj.Status.LoadBalancer.Ingress, addrs) {
 			obj.Status.LoadBalancer.Ingress = addrs
 			return ctrl.Result{}, r.Status().Update(ctx, obj)
-		} else {
-			log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 		}
+		log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 	}
 {{- end}}
 

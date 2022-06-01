@@ -50,7 +50,9 @@ type Knativev1alpha1IngressReconciler struct {
 func (r *Knativev1alpha1IngressReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	c, err := controller.New("Knativev1alpha1Ingress", mgr, controller.Options{
 		Reconciler: r,
-		Log:        r.Log,
+		LogConstructor: func(_ *reconcile.Request) logr.Logger {
+			return r.Log
+		},
 	})
 	if err != nil {
 		return err
@@ -92,8 +94,8 @@ func (r *Knativev1alpha1IngressReconciler) listClassless(obj client.Object) []re
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -188,9 +190,8 @@ func (r *Knativev1alpha1IngressReconciler) Reconcile(ctx context.Context, req ct
 			ingressCondSet.Manage(&obj.Status).MarkTrue(knativev1alpha1.IngressConditionNetworkConfigured)
 			obj.Status.ObservedGeneration = obj.Generation
 			return ctrl.Result{}, r.Status().Update(ctx, obj)
-		} else {
-			log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 		}
+		log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 	}
 
 	return ctrl.Result{}, nil

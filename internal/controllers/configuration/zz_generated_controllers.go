@@ -332,8 +332,8 @@ func (r *NetV1IngressReconciler) listClassless(obj client.Object) []reconcile.Re
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -416,9 +416,8 @@ func (r *NetV1IngressReconciler) Reconcile(ctx context.Context, req ctrl.Request
 		if len(obj.Status.LoadBalancer.Ingress) != len(addrs) || !reflect.DeepEqual(obj.Status.LoadBalancer.Ingress, addrs) {
 			obj.Status.LoadBalancer.Ingress = addrs
 			return ctrl.Result{}, r.Status().Update(ctx, obj)
-		} else {
-			log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 		}
+		log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 	}
 
 	return ctrl.Result{}, nil
@@ -561,8 +560,8 @@ func (r *NetV1Beta1IngressReconciler) listClassless(obj client.Object) []reconci
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -645,9 +644,8 @@ func (r *NetV1Beta1IngressReconciler) Reconcile(ctx context.Context, req ctrl.Re
 		if len(obj.Status.LoadBalancer.Ingress) != len(addrs) || !reflect.DeepEqual(obj.Status.LoadBalancer.Ingress, addrs) {
 			obj.Status.LoadBalancer.Ingress = addrs
 			return ctrl.Result{}, r.Status().Update(ctx, obj)
-		} else {
-			log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 		}
+		log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 	}
 
 	return ctrl.Result{}, nil
@@ -718,8 +716,8 @@ func (r *ExtV1Beta1IngressReconciler) listClassless(obj client.Object) []reconci
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -802,9 +800,8 @@ func (r *ExtV1Beta1IngressReconciler) Reconcile(ctx context.Context, req ctrl.Re
 		if len(obj.Status.LoadBalancer.Ingress) != len(addrs) || !reflect.DeepEqual(obj.Status.LoadBalancer.Ingress, addrs) {
 			obj.Status.LoadBalancer.Ingress = addrs
 			return ctrl.Result{}, r.Status().Update(ctx, obj)
-		} else {
-			log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 		}
+		log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 	}
 
 	return ctrl.Result{}, nil
@@ -1005,8 +1002,8 @@ func (r *KongV1KongClusterPluginReconciler) listClassless(obj client.Object) []r
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -1124,8 +1121,8 @@ func (r *KongV1KongConsumerReconciler) listClassless(obj client.Object) []reconc
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -1259,8 +1256,8 @@ func (r *KongV1Beta1TCPIngressReconciler) listClassless(obj client.Object) []rec
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -1343,9 +1340,8 @@ func (r *KongV1Beta1TCPIngressReconciler) Reconcile(ctx context.Context, req ctr
 		if len(obj.Status.LoadBalancer.Ingress) != len(addrs) || !reflect.DeepEqual(obj.Status.LoadBalancer.Ingress, addrs) {
 			obj.Status.LoadBalancer.Ingress = addrs
 			return ctrl.Result{}, r.Status().Update(ctx, obj)
-		} else {
-			log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 		}
+		log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 	}
 
 	return ctrl.Result{}, nil
@@ -1416,8 +1412,8 @@ func (r *KongV1Beta1UDPIngressReconciler) listClassless(obj client.Object) []rec
 		return nil
 	}
 	var recs []reconcile.Request
-	for _, resource := range resourceList.Items {
-		if ctrlutils.IsIngressClassEmpty(&resource) {
+	for i, resource := range resourceList.Items {
+		if ctrlutils.IsIngressClassEmpty(&resourceList.Items[i]) {
 			recs = append(recs, reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: resource.Namespace,
@@ -1500,9 +1496,8 @@ func (r *KongV1Beta1UDPIngressReconciler) Reconcile(ctx context.Context, req ctr
 		if len(obj.Status.LoadBalancer.Ingress) != len(addrs) || !reflect.DeepEqual(obj.Status.LoadBalancer.Ingress, addrs) {
 			obj.Status.LoadBalancer.Ingress = addrs
 			return ctrl.Result{}, r.Status().Update(ctx, obj)
-		} else {
-			log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 		}
+		log.V(util.DebugLevel).Info("status update not needed", "namespace", req.Namespace, "name", req.Name)
 	}
 
 	return ctrl.Result{}, nil
