@@ -127,7 +127,8 @@ manifests.crds: controller-gen ## Generate WebhookConfiguration and CustomResour
 .PHONY: manifests.rbac ## Generate ClusterRole objects.
 manifests.rbac: controller-gen
 	$(CONTROLLER_GEN) rbac:roleName=kong-ingress paths="./internal/controllers/configuration/"
-	$(CONTROLLER_GEN) rbac:roleName=kong-ingress-gateway paths="./internal/controllers/gateway/" output:rbac:artifacts:config=config/rbac/optional
+	$(CONTROLLER_GEN) rbac:roleName=kong-ingress-knative paths="./internal/controllers/knative/" output:rbac:artifacts:config=config/rbac/knative
+	$(CONTROLLER_GEN) rbac:roleName=kong-ingress-gateway paths="./internal/controllers/gateway/" output:rbac:artifacts:config=config/rbac/gateway
 
 .PHONY: manifests.single
 manifests.single: kustomize ## Compose single-file deployment manifests from building blocks
