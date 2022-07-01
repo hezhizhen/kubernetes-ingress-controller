@@ -16,6 +16,7 @@ import (
 	"github.com/blang/semver/v4"
 	"github.com/kong/kubernetes-testing-framework/pkg/clusters"
 	"github.com/kong/kubernetes-testing-framework/pkg/clusters/addons/kong"
+	"github.com/kong/kubernetes-testing-framework/pkg/clusters/addons/kuma"
 	"github.com/kong/kubernetes-testing-framework/pkg/clusters/addons/loadimage"
 	"github.com/kong/kubernetes-testing-framework/pkg/clusters/addons/metallb"
 	"github.com/kong/kubernetes-testing-framework/pkg/environments"
